@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/ionic.css">
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "http://localhost/tugasakhir/gaji/www/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var id = field.no;
+                var title = field.namakaryawan;
+                var duration = field.NIK;
+                var price = field.gajibersih;
+                $("#listview").append("<a class='item' href='form.html?id=" + id + "&title=" + duration + "&duration=" + title + "&price=" + price + "'><span class='item-note'>Rp " + price + ",00</span><h2>" + title + " </h2><p>" + duration + "</p></a>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="../gaji/index.html" class="button button-clear">Gaji</a>
+        <a href="../jabatan/index.html" class="button button-clear">Jabatan</a>
+        <a href="../kantor/index.html" class="button button-clear">Kantor</a>
+        <a href="../karyawan/index.html" class="button button-clear">Karyawan</a>
+        <h1 class="title">Lihat Gaji</h1>
+        <a href="index.html" class="button button-clear">Insert Gaji</a>
+    </div>
+    <br/>
+    <br/>
+    <ul class="list" id="listview">
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/ionic.css">
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#insert").click(function() {
+            var title = $("#title").val();
+            var duration = $("#duration").val();
+            var price = $("#price").val();
+            var dataString = "title=" + title + "&duration=" + duration + "&price=" + price + "&insert=";
+            if ($.trim(title).length > 0 & $.trim(duration).length > 0 & $.trim(price).length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost/tugasakhir/karyawan/www/insert.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Connecting...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("inserted");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "http://localhost/tugasakhir/gaji/www/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var duration = field.namakaryawan;
+                $("#title").append("<option value="+ duration +">"+ duration +"</option>");
+            });
+        });
+    });
+    $(document).ready(function() {
+        var url = "http://localhost/tugasakhir/jabatan/www/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var duration = field.namajabatan;
+                $("#duration").append("<option value="+ duration +">"+ duration +"</option>");
+            });
+        });
+    });
+    $(document).ready(function() {
+        var url = "http://localhost/tugasakhir/kantor/www/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var duration = field.namaKantor;
+                $("#price").append("<option value="+ duration +">"+ duration +"</option>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="../gaji/index.html" class="button button-clear">Gaji</a>
+        <a href="../jabatan/index.html" class="button button-clear">Jabatan</a>
+        <a href="../kantor/index.html" class="button button-clear">Kantor</a>
+        <a href="../karyawan/index.html" class="button button-clear">Karyawan</a>
+        <h1 class="title">Insert Gaji</h1>
+        <a class="button button-clear" href="readjson.html">Lihat Gaji</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+          <label>Nama Karyawan</label>
+          <select id="title">
+          </select>
+        </div>
+        <div class="item">
+          <label>Jabatan</label>
+          <select id="duration">
+          </select>
+        </div>
+        <div class="item">
+          <label>Kantor</label>
+          <select id="price">
+          </select>
+        </div>
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Insert" />
+        </div>
+    </div>
+</body>
+
+</html>
