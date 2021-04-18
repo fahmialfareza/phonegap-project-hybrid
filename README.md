@@ -1,1 +1,3 @@
-# ppk_project
+# Phonegap Project
+
+Mobile Hybrid with Phonegap
